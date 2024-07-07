@@ -17,9 +17,9 @@ def perform_test(model):
 
     for i in range(predictions_ai.size):
         if predictions_ai[i] >= 0.50:
-            predictions_ai[i] = 0
-        else:
             predictions_ai[i] = 1
+        else:
+            predictions_ai[i] = 0
 
     real_test_ds = tf.keras.preprocessing.image_dataset_from_directory(
         test_dir_real_path,
