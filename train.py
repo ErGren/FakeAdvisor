@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from costants import train_dir_path, image_size, batch_size, epochs, model_name
+from costants import train_dir_path, image_size, batch_size, epochs, model_name, models_base_path
 
 
 def train_model(model, kind):
@@ -24,7 +24,8 @@ def train_model(model, kind):
     val_ds = val_ds.prefetch(buffer_size=32)
 
     callbacks = [
-        tf.keras.callbacks.ModelCheckpoint(f"model/{kind}/{model_name}_{{epoch}}.h5"),
+        tf.keras.callbacks.ModelCheckpoint(f"{models_base_path}/{kind}/{model_name}.h5"),
+        # tf.keras.callbacks.ModelCheckpoint(f"{models_base_path}/{kind}/{model_name}_{{epoch}}.h5"),
     ]
 
     model.compile(

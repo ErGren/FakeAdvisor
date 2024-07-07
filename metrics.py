@@ -3,12 +3,7 @@ import tensorflow as tf
 from sklearn.metrics import classification_report
 import tensorflow_hub as hub
 
-from costants import image_size, batch_size
-
-# CUSTOMIZE PATHS
-test_dir_ai_path = "C:/Users/Gren/Desktop/Real_AI_SD_LD_Dataset/test/AI"
-test_dir_real_path = "C:/Users/Gren/Desktop/Real_AI_SD_LD_Dataset/test/real"
-model_path = "C:/Users/Gren/git/FakeAdvisor/model/ai_advisor.h5"
+from costants import image_size, batch_size, test_dir_ai_path, test_dir_real_path
 
 
 def perform_test(model):
@@ -49,12 +44,9 @@ def perform_test(model):
 
     y_pred = numpy.concatenate((predictions_ai, predictions_real), axis=0)
 
-    print(classification_report(y_true, y_pred))
+    return classification_report(y_true, y_pred)
 
 
-def run_test():
+def generate_metrics(model_path):
     model = tf.keras.models.load_model(model_path, custom_objects={'KerasLayer': hub.KerasLayer})
-    perform_test(model)
-
-
-run_test()
+    return perform_test(model)
